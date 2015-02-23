@@ -1,4 +1,4 @@
-#v3.2 rnp 2014-11-01
+#6 Feb 2015
 
 use Bio::SearchIO; 
 use Bio::SeqIO;
@@ -6,7 +6,6 @@ use Getopt::Long;
 
 #TO DO
 # get around using bioperl
-# check input files for unuseable characters in fasta/blast.out
 # include options for repeatMasker, BED, gFF, SAM
 # packaged alignment
 # clean up unaligned files
@@ -34,42 +33,42 @@ GetOptions('genome=s'	 => \$genome_in,
 
 
 #if input values not appropriate print usage statement.
-#if(defined $help){
-#	usage();
-#}
-#
-#if($genome_in == undef){
-#	print "\nERROR: No genome file given\n";
-#	usage();
-#}
-#
-#if($blast_in == undef){
-#	print "\nERROR: No blast file given\n";
-#	usage();
-#}
-#
-#if($consTEs == undef){
-#	print "\nERROR: No file of consensus TEs given\n";
-#	usage();
-#}
-#
-#if($buffer_in == undef){
-#	print "\nERROR: No sequence buffer given for extractions\n";
-#	usage();
-#}
-#
-#if($seq_num_in == undef){
-#	print "\nError: Number of sequences to extract are not indicated\n";
-#	usage();
-#}
+if(defined $help){
+	usage();
+}
 
-#step 1 organizing blast output
+if( ! defined $genome_in ){
+	print "\nERROR: No genome file given\n";
+	usage();
+}
+
+if( ! defined $blast_in ){
+	print "\nERROR: No blast file given\n";
+	usage();
+}
+
+if( ! defined $te_in ){
+	print "\nERROR: No file of consensus TEs given\n";
+	usage();
+}
+
+if( ! defined $buffer_in ){
+	print "\nERROR: No sequence buffer given for extractions\n";
+	usage();
+}
+
+if( ! defined $seq_num_in ){
+	print "\nError: Number of sequences to extract are not indicated\n";
+	usage();
+}
+
+#step 1 organizing blast output----------------------------------------------
  &organize_blast_hits($blast_in, $buffer_in, $seq_num_in);
 
-#step two creating ouput files with the consensus 
+#step two creating ouput files with the consensus ---------------------------
  &create_te_out_files($te_in);
 
-#step three loading genome into memory
+#step three loading genome into memory------------------------------
 
 
 my $inseq = Bio::SeqIO->new(-file   => "<$genome_in", -format =>"fasta");
@@ -88,7 +87,8 @@ while (my $seq = $inseq->next_seq) {
       
         $seq_extract = substr($genome{$subject}, $extract_start, $extract_length);
 			
-		# sequences in reverse orientatation reverse complemented to fit the original query sequence
+		# sequences in reverse orientatation reverse complemented to fit 
+		#    the original query sequence
 		if($orient == -1){
 			$seq_extract =revTrans($seq_extract);
 				
@@ -101,7 +101,7 @@ while (my $seq = $inseq->next_seq) {
 
     my %genome;
 
-#step 4 align if desired
+#step 4 align if desired-----------------------------------
 if( $align eq "1"){
     foreach $te_unaligned_file (keys %to_align_list){
         $te_unaligned_file =~ s/.fas//gi;
@@ -228,7 +228,7 @@ sub usage
 	print " #  Optional values:                                             #\n";
 	print " #    --align     aligns the sequences with MUSCLE               #\n";
 	print " #                                                               #\n";
-	print " # Questions: neal.platt@gmail.com			 	     	#\n";
+	print " # Questions: neal.platt at gmail.com		  	     	 #\n";
 	print " #################################################################\n";
 	
 	exit;
