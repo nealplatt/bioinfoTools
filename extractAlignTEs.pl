@@ -116,7 +116,7 @@ sub revTrans
 	
 	$sequence = $_[0];	
 	$sequence = reverse $sequence;
-	$sequence =~ tr/ACGT/TGCA/;
+	$sequence =~ tr/ACGTacgt/TGCAtgca/;
 	return $sequence;
 }
 
