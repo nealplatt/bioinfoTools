@@ -96,7 +96,7 @@ while (my $seq = $inseq->next_seq) {
         
 		$to_align_list{$query}++;
         open (TE_OUT, ">>$query.fas") or die "$id.fas cannot be opened to insert new sequence to file.\n";
-        print TE_OUT ">$subject:$extract_start-$extract_length($orient)\n$seq_extract\n";
+        print TE_OUT ">$subject-$extract_start-$extract_length($orient)\n$seq_extract\n";
     }
 
     my %genome;
@@ -218,7 +218,7 @@ sub usage
 	print " #                                                               #\n";	
 	print " #  extract.align.pl - a program to extract TEs from a genome    #\n";
 	print " #                                                               #\n";
-	print " #  Required values:                                             #\n";                                              
+	print " #  Required values:                                             #\n";  
 	print " #    --genome    input genome file (in fasta format)            #\n";
 	print " #    --blast     input blast file (tab format [6])              #\n"; 
 	print " #    --consTEs   file of consensus elements                     #\n";
