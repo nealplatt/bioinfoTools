@@ -58,7 +58,7 @@ while(<BLAST_HITS_IN>) {
     
     #progress tracker
     if($i == 100000){
-        print "."
+        print ".";
         $i=0;
     }#closes if
   
@@ -85,8 +85,8 @@ while( ($read_name=<RAWREADS_IN>) && ($sequence=<RAWREADS_IN>) && ($comment=<RAW
     }#closes if loop
     
     #progress tracker
-    if($i == 1000000){
-        print "."
+    if($i == 100000){
+        print ".";
         $i=0;
     }#closes if
   
@@ -105,18 +105,16 @@ sub usage
 	print " #################################################################\n";
 	print " #                                                               #\n";	
 	print " #  extract_fastq_reads_from_blast.pl - a program to extract an  #\n";
-    print " #      entire fastq read from a blast.out file                  #\n";
+        print " #      entire fastq read from a blast.out file                  #\n";
 	print " #                                                               #\n";
 	print " #  Required values:                                             #\n";  
 	print " #    --raw_reads input read file  (in fastq format)             #\n";
 	print " #    --blast     input blast file (tab format [6])              #\n"; 
-    print " #    --out       output file (fastq format )                    #\n"; 
+        print " #    --out       output file (fastq format )                    #\n"; 
 	print " #                                                               #\n";
-	print " # Questions: neal.platt at gmail.com		  	     	        #\n";
+	print " # Questions: neal.platt at gmail.com		  	     	#\n";
 	print " #################################################################\n";
 	
 	exit;
 }
-
-
 
